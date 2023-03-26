@@ -30,7 +30,11 @@ int countPairs3(int *arr, int len, int value) {
     int Left = i, Right = len;
     while (Left < Right - 1) {
       int Mid = (Left + Right) / 2;
-      if (arr[i] + arr[Mid] == value) {
+      if (arr[i] + arr[Mid] > value) {
+        Right = Mid;
+      } else if (arr[i] + arr[Mid] < value)
+        Left = Mid;
+      } else {
         res += 1;
         int newMid = Mid + 1;
         while (arr[i] + arr[newMid] == value && newMid < Right) {
@@ -43,10 +47,6 @@ int countPairs3(int *arr, int len, int value) {
           newMid -= 1;
         }
         break;
-      } else if (arr[i] + arr[Mid] > value) {
-        Right = Mid;
-      } else {
-        Left = Mid;
       }
     }
   }
